@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-8">
+    <div class="media">
+      <div class="media-body">
+        <br/>
+        <h2 class="media-heading">User Profile</h2>
+        <br/>
+        <% if @user %>
+          <h2 class="media-heading">name: <%= @user.name %></h2>
+          <h2 class="media-heading">email: <%= @user.email %></h2>
+        <% else %>
+          <br/>
+          <h2>No user signed in</h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
