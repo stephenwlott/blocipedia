@@ -25,3 +25,7 @@
 .nav {
   margin-top: 5px;
 }
+
+table {
+  width: auto !important;
+}
