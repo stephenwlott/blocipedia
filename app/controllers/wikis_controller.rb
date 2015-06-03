@@ -29,8 +29,9 @@ class WikisController < ApplicationController
   end
   
   def update
-    @user = current_user
-    @wiki = current_user.wikis.find_by_id(params[:id])
+    @wiki = Wiki.find(params[:id])
+    @user = User.find(@wiki.user_id)
+    
     if @wiki.update_attributes(params.require(:wiki).permit(:title, :body))
       @wiki.reload
       flash[:notice] = "Wiki was updated."

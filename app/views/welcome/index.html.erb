@@ -2,7 +2,32 @@
 <div class = "container">
   <div class="jumbotron">
     <h1>Blocipedia</h1>
-    <h3>Blocipedia is a wiki application</h3>
-    <h3>that allows users to collaborate on editing of information.</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-8">
+    <% if @wikis.first %>
+      <br/>
+      <h2>List of Blocipedia Wikis</h2>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th><h3>Wiki</h3></th>
+            <th><h3></h3></th>
+            <th><h3>Originator</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @wikis.each do |wiki| %>
+          <%= render partial: 'wikis/wikis', locals: {wiki: wiki} %>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <br/>
+      <h2>No wikis</h2>
+    <% end %>
   </div>
 </div>
