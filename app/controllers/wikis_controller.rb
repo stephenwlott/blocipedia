@@ -30,7 +30,7 @@ class WikisController < ApplicationController
   
   def update
     @wiki = Wiki.find(params[:id])
-    @user = User.find(@wiki.user_id)
+    @user = @wiki.user
     
     if @wiki.update_attributes(params.require(:wiki).permit(:title, :body))
       @wiki.reload

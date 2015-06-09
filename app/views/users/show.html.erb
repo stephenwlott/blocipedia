@@ -11,16 +11,21 @@
           <h2 class="media-heading">name: <%= @user.name %></h2>
           <h2 class="media-heading">email: <%= @user.email %></h2>
           <h2 class="media-heading">role: <%= @user.role %></h2>
-          <% if @wikis.first %>
-            <br/>
-            <h2>Wikis</h2>
-            <table class="table table-bordered table-condensed">
-              <tbody>
-                <% @wikis.each do |wiki| %>
-                <%= render partial: 'wikis/wiki', locals: {user: @user, wiki: wiki} %>
-                <% end %>
-              </tbody>
-            </table>
+          <% if @wikis %>
+            <% if @wikis.first %>
+              <br/>
+              <h2>Wikis</h2>
+              <table class="table table-bordered table-condensed">
+                <tbody>
+                  <% @wikis.each do |wiki| %>
+                    <%= render partial: 'wikis/wiki', locals: {user: @user, wiki: wiki} %>
+                  <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <br/>
+              <h2>No wikis</h2>
+            <% end %>
           <% else %>
             <br/>
             <h2>No wikis</h2>
