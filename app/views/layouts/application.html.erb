@@ -14,6 +14,9 @@
         <li><%= link_to "About", welcome_about_path %></li>
         <li><%= link_to "My Wikis", user_path(:id, :user_id) %></li>
         <li><%= link_to "Create New Wiki", new_user_wiki_path(:user_id) %></li>
+        <li><%= link_to "Upgrade Account", new_charge_path %></li>
+        <li><%= link_to "Downgrade Account", user_downgrade_path(:user_id), :data => {:confirm => 'Are you sure you want to downgrade to Standard?'} %></li>
+        
         <div class="pull-right user-info">
           <% if current_user %>
             Hello <%= link_to (current_user.name || current_user.email), current_user %>!
