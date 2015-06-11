@@ -11,8 +11,6 @@ class UsersController < ApplicationController
     @id = current_user.id
     @users = User.all
     @user = @users.find(@id)
-    #@role = "premium"
-    #@user_id = current_user.id
     if @user.update_attribute :role, "premium"
       @user.reload
       flash[:notice] = "User account upgraded."
@@ -24,15 +22,20 @@ class UsersController < ApplicationController
   end
   
   def downgrade
-    @id = current_user.id
-    @users = User.all
-    @user = @users.find(@id)
-    
-    if @user.role == "standard"
-      flash[:notice] = "You are already Standard. Downgrade is not possible."
-      render 'users/show'
-    else
-      if @user.update_attribute :role, "standard"
+    if current_user
+      @id = current_user.id
+      @users = User.all
+      @user = @users.find(@id)
+      if @user
+        @wikis = current_user.wikis
+      end
+ 
+      if @user.update_attribute :role, "standard"      
+        @wikis.each do |w|
+          if w.private
+            w.update_attribute :private, false
+          end
+        end
         @user.reload
         flash[:notice] = "User account downgraded."
         redirect_to @user
@@ -40,6 +43,9 @@ class UsersController < ApplicationController
         flash[:error] = "There was an error downgrading the user account. Please try again."
         redirect_to @user
       end
+    else
+      flash[:notice] = "No user signed in."
+      render 'welcome/index'
     end
   end  
 end

@@ -14,8 +14,14 @@
           <% if @wikis %>
             <% if @wikis.first %>
               <br/>
-              <h2>Wikis</h2>
+              <h2>My Wikis</h2>
               <table class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th><h3>Wiki</h3></th>
+                    <th><h3>Public/Private</h3></th>
+                  </tr>
+                </thead>
                 <tbody>
                   <% @wikis.each do |wiki| %>
                     <%= render partial: 'wikis/wiki', locals: {user: @user, wiki: wiki} %>

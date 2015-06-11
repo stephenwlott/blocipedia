@@ -1,14 +1,8 @@
 <div class="row">
-  <div class="col-md-8">
-    <h1><%= markdown_to_html @wiki.title %></h1>
-    <h4><%= markdown_to_html @wiki.body %></h4>
-  </div>
   <div class="col-md-3">
-    <% if @wiki.edit? %>
-    <%= link_to "Edit Wiki", edit_user_wiki_path(wiki.user_id, wiki.id), class: 'btn btn-success' %>
-    <% end %>
-    <% if @wiki.destroy? %>
-    <%= link_to "Delete Wiki", [@user, @wiki], method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this wiki?' } %>
-    <% end %>
+  </div>
+  <div class="col-md-4">
+    <h1><%= @wiki.title %></h1>
+    <h2><%= @wiki.body %></h2>
   </div>
 </div>

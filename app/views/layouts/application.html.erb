@@ -14,8 +14,16 @@
         <li><%= link_to "About", welcome_about_path %></li>
         <li><%= link_to "My Wikis", user_path(:id, :user_id) %></li>
         <li><%= link_to "Create New Wiki", new_user_wiki_path(:user_id) %></li>
-        <li><%= link_to "Upgrade Account", new_charge_path %></li>
-        <li><%= link_to "Downgrade Account", user_downgrade_path(:user_id), :data => {:confirm => 'Are you sure you want to downgrade to Standard?'} %></li>
+        
+        <% if @user %>
+          <% if @user.standard? %>
+            <li><%= link_to "Upgrade Account", new_charge_path %></li>
+          <% end %>
+          <% if @user.premium? %>
+            <li><%= link_to "Downgrade Account", user_downgrade_path(:user_id), 
+              :data => {:confirm => "You are downgrading to a Standard account. \nYour private wikis will become public. \nAre you sure?"} %></li>
+          <% end %>
+        <% end %>
         
         <div class="pull-right user-info">
           <% if current_user %>

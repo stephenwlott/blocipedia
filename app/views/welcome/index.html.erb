@@ -5,7 +5,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-2">
   </div>
   <div class="col-md-8">
     <% if @wikis.first %>
@@ -16,12 +16,14 @@
           <tr>
             <th><h3>Wiki</h3></th>
             <th><h3>Originator</h3></th>
-            <th><h3></h3></th>
+            <th><h3>Public/Private</h3></th>
           </tr>
         </thead>
         <tbody>
           <% @wikis.each do |wiki| %>
-          <%= render partial: 'wikis/wikis', locals: {wiki: wiki} %>
+          <% if !wiki.private || (current_user && ((current_user.premium?) || (current_user.admin?))) %>
+              <%= render partial: 'wikis/wikis', locals: {wiki: wiki} %>
+            <% end %>
           <% end %>
         </tbody>
       </table>

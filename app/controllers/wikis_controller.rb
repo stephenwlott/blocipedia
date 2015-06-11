@@ -4,8 +4,8 @@ class WikisController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @wikis = current_user.wikis
+    @wiki = Wiki.find(params[:id])
+    @user = @wiki.user
   end
 
   def new
@@ -32,7 +32,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     @user = @wiki.user
     
-    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body))
+    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body, :private))
       @wiki.reload
       flash[:notice] = "Wiki was updated."
       redirect_to @user

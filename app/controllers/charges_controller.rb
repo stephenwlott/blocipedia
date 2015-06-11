@@ -28,18 +28,15 @@ class ChargesController < ApplicationController
   
   def new
     @user = current_user
-    if @user.role == "admin"
-      flash[:notice] = "You are Admin. Upgrade is not applicable."
-      render 'users/show'
-    elsif @user.role == "premium"
-      flash[:notice] = "You are already Premium. Upgrade is not necessary."
-      render 'users/show'
-    else
+    if @user
       @stripe_btn_data = {
         key: "#{ Rails.configuration.stripe[:publishable_key] }",
         description: "BigMoney Membership - #{current_user.name}",
         amount: Amount.default
       }
+    else
+      flash[:notice] = "No user signed in."
+      render 'welcome/index'
     end
- end
+  end
 end
