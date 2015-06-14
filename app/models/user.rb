@@ -8,15 +8,15 @@ class User < ActiveRecord::Base
   
   has_many  :wikis, dependent: :destroy
   
-  def admin?
+  def is_admin?
     role == 'admin'
   end
   
-  def premium?
+  def is_premium?
     role == 'premium'
   end
   
-  def standard?
+  def is_standard?
     role == 'standard'
   end
   
