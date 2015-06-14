@@ -1,6 +1,6 @@
 <tr id="wiki-<%= wiki.id %>">
   <td><h4><%= wiki.title %><h4></td>
-  <% if wiki.private %>
+  <% if wiki.is_private? %>
     <td><h4><center>private</center><h4></td>
   <% else %>
     <td><h4><center>public</center><h4></td>

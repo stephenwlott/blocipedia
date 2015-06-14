@@ -21,7 +21,10 @@
         </thead>
         <tbody>
           <% @wikis.each do |wiki| %>
-          <% if !wiki.private || (current_user && ((current_user.premium?) || (current_user.admin?))) %>
+          <% if wiki.is_public? || 
+               (current_user && 
+                 ((current_user.is_admin?) || 
+                   ((current_user.is_premium?) && (wiki.user_id == current_user.id)))) %>
               <%= render partial: 'wikis/wikis', locals: {wiki: wiki} %>
             <% end %>
           <% end %>
