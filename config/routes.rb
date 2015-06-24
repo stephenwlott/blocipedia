@@ -6,10 +6,14 @@ Rails.application.routes.draw do
     get 'downgrade'
   end
   resources :charges, only: [:new, :create]
-  
+  resources :collaborators, only: [:new, :create]
+  resources :wikis do
+    get 'select_collaborators'
+  end
+
   get 'welcome/index'
   get 'welcome/about'
-
+  
   authenticated :user do
     root to: "users#show", :as => "profile"
   end

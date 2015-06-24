@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable, :confirmable
   
-  has_many  :wikis, dependent: :destroy
+  has_many :wikis
+  has_many :collaborators
   
   def is_admin?
     role == 'admin'

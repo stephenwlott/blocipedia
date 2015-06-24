@@ -1,20 +1,26 @@
 class WikisController < ApplicationController
-  def index
-    @wikis = Wiki.all
-  end
-
+  
+   def index
+     @wikis = policy_scope(Wiki)
+   end
+  
   def show
     @wiki = Wiki.find(params[:id])
     @user = @wiki.user
   end
-
+  
   def new
-    @wiki = Wiki.new
-    @user = current_user
+    if current_user
+      @wiki = Wiki.new
+      @id = @wiki.id
+      @user = current_user
+    end
   end
   
   def create
-    @wiki = current_user.wikis.new(params.require(:wiki).permit(:title, :body))
+    @wiki = current_user.wikis.new(params.require(:wiki).permit(:title, :body, :private, :user_id))
+    @id = @wiki.id
+    @user = current_user
     if @wiki.save
       redirect_to user_path(:id, :user_id), notice: "Wiki was saved successfully."
     else
@@ -30,12 +36,12 @@ class WikisController < ApplicationController
   
   def update
     @wiki = Wiki.find(params[:id])
-    @user = @wiki.user
+    @user_id = params[:user_id]
     
-    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body, :private))
+    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body, :private, :user_id))
       @wiki.reload
       flash[:notice] = "Wiki was updated."
-      redirect_to @user
+      redirect_to user_path(:id, :user_id)
     else
       flash[:error] = "There was an error saving the wiki. Please try again."
       render :edit
@@ -57,10 +63,15 @@ class WikisController < ApplicationController
     end
   end
   
+  def select_collaborators
+    @wiki = Wiki.find(params[:wiki_id])
+    @users = User.all
+  end
+  
   private
 
   def wiki_params
     params.require(:wiki).permit(:title, :body)
   end
-  
+
 end

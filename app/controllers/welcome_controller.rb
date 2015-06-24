@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   def about

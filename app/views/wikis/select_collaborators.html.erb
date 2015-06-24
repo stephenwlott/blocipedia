@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+    <% if @users.first %>
+      <br/>
+      <h2>Select Collaborators for Wiki "<%= @wiki.title %>" </h2> 
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th><h3>User Name</h3></th>
+            <th><h3>User Email</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |u| %>
+            <tr>
+              <td><h4><%= u.name %><h4></td>
+              <td><h4><%= u.email %><h4></td>
+                <% if u.id == current_user.id %>
+                  <td><h4>Originator<h4></td>
+                <% elsif @wiki.users.include?(u) %>
+                  <td><h4>Collaborator<h4></td>
+                <% else %>
+                  <td><h4><%= link_to "Select", new_collaborator_path(:wiki_id => @wiki.id, :user_id => u.id) %></h4></td>
+                <% end %>
+            </tr>  
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
