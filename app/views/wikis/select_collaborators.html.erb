@@ -22,7 +22,7 @@
                 <% elsif @wiki.users.include?(u) %>
                   <td><h4>Collaborator<h4></td>
                 <% else %>
-                  <td><h4><%= link_to "Select", new_collaborator_path(:wiki_id => @wiki.id, :user_id => u.id) %></h4></td>
+                    <td><h4><%= link_to "Select", collaborators_path(:wiki_id => @wiki.id, :user_id => u.id), :method => :post %></h4></td>
                 <% end %>
             </tr>  
           <% end %>

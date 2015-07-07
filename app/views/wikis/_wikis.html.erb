@@ -1,10 +1,6 @@
 <tr id="wiki-<%= wiki.id %>">
   <td><h4><%= wiki.title %><h4></td>
-  <% if wiki.user %>
-    <td><h4><%= wiki.user.name %><h4></td>
-  <% else %>
-    <td></td>
-  <% end %>  
+  <td><h4><%= wiki.user.try(:name) %><h4></td>
   <% if wiki.private %>
     <td><h4><center>private</center><h4></td>
   <% else %>

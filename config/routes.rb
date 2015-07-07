@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get 'downgrade'
   end
   resources :charges, only: [:new, :create]
-  resources :collaborators, only: [:new, :create]
+  resources :collaborators, only: [:create]
   resources :wikis do
     get 'select_collaborators'
   end
